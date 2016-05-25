@@ -1,0 +1,54 @@
+<head>
+  <title>Meteor Blaze Apollo example</title>
+</head>
+
+<body>
+  <div class="row">
+    <div class="col-md-6 col-md-push-3">
+      {{> chat}}
+    </div>
+  </div>
+</body>
+
+<template name="chat">
+  {{#if messagesQuery.loading}}
+    Loading...
+  {{else}}
+    <ul class="nav nav-tabs" style="margin-top: 10px;">
+      <li class="{{#if inChannel '#general'}}active{{/if}}">
+        <a href="#" class="js-change-channel" data-channel="#general">
+          #general
+        </a>
+      </li>
+      <li class="{{#if inChannel '#random'}}active{{/if}}">
+        <a href="#" class="js-change-channel" data-channel="#random">
+          #random
+        </a>
+      </li>
+    </ul>
+    <ul class="list-group" style="margin-top: 10px;">
+      {{#each message in messagesQuery.messages}}
+        <li class="list-group-item">
+          <span class="badge">{{message.username}}</span>
+          {{message.content}}
+        </li>
+      {{/each}}
+
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-md-3">
+          <div class="input-group" style="width: 100%;">
+            <input type="text" class="form-control js-username" placeholder="username" />
+          </div>
+        </div>
+        <div class="col-md-7">
+          <div class="input-group" style="width: 100%;">
+            <input type="text" class="form-control js-message" placeholder="message" />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-primary js-send">Send</button>
+        </div>
+      </div>
+    </ul>
+  {{/if}}
+</template>
